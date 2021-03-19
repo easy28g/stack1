@@ -19,5 +19,7 @@ public class Main {
 
         CreateAndAddProductImpl createAndAddProduct = new CreateAndAddProductImpl();
         createAndAddProduct.createAndAddProduct();
+        createAndAddProduct.outputStackKey();
+        createAndAddProduct.outputListProduct();
     }
 }
