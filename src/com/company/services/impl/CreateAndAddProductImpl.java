@@ -13,6 +13,7 @@ public class CreateAndAddProductImpl implements CreateAndAddProduct, output {
 
     LinkedHashSet products = new LinkedHashSet();
     LinkedHashSet productsOZ = new LinkedHashSet();
+    LinkedHashSet productsId = new LinkedHashSet();
 
     HashMap<Integer, Product> productsHM;
     Stack<Integer> stackProduct = new Stack<>();
@@ -47,13 +48,13 @@ public class CreateAndAddProductImpl implements CreateAndAddProduct, output {
             Unit productStatus = Unit.valueOf(unit);
 
             Product product = new Product(id, productName, kindName, amount, productStatus);
-
+            //Product productId = new Product(id);
             Product productOZ = new Product(productName, kindName, amount, productStatus);
 
 
             products.add(product); // общий прод
             productsOZ.add(productOZ); // для мап значения
-
+            productsId.add(id); // для ID
 
             productsHM = new HashMap<>();
 
@@ -72,7 +73,7 @@ public class CreateAndAddProductImpl implements CreateAndAddProduct, output {
 
     @Override
     public void outputStackKey() {
-
+        System.out.println("Ключи");
         for(int i=0; i<productsOZ.size(); i++) {
             System.out.println(stackProduct.pop());
         }
@@ -81,23 +82,36 @@ public class CreateAndAddProductImpl implements CreateAndAddProduct, output {
 
     @Override
     public void outputListProduct() {
+        int n;
 
-        System.out.print("Введите id продукта - ");
-        int n = scanner.nextInt();
+        do {
 
-        ArrayList myListHM = new ArrayList(productsOZ);
+            System.out.print("Введите id продукта - ");
+            n = scanner.nextInt();
 
-        HashMap<Integer, Object> myHMlist = new HashMap<>();
-        for(int i=0; i<myListHM.size(); i++){
-            myHMlist.putIfAbsent(i, myListHM.get(i));
-            //System.out.println(myListHM.get(i));
-        }
+            ArrayList myListHM = new ArrayList(productsOZ);
+            ArrayList myListID = new ArrayList(productsId);
 
-        for(Map.Entry entry: myHMlist.entrySet()){
-            if(entry.getKey().equals(n-1)){
-                System.out.println(entry.getValue());
+
+            HashMap<Integer, Object> myHMlist = new HashMap<>(); int k;
+            for(int i=0; i<myListHM.size(); i++){
+                myHMlist.putIfAbsent((Integer) myListID.get(i), myListHM.get(i));
+                //System.out.println(myListHM.get(i));
             }
-        }
+
+            for(Map.Entry entry: myHMlist.entrySet()){
+                if(entry.getKey().equals(n)){
+                    System.out.println(entry.getValue());
+                }
+            }
+
+            System.out.print("Нажмите 'n' для выхода - ");
+            String no = scanner.next();
+            if(no.equals("n")){
+                break;
+            }
+
+        }while(true);
 
     }
 }

@@ -27,6 +27,7 @@ public class Product {
         this.unit = unit;
     }
 
+
     public Product(int id) {
         this.id = id;
     }
